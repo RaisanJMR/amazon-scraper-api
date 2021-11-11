@@ -1,11 +1,11 @@
 const express = require('express')
 const request = require('request-promise')
+const path = require('path')
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
-// const apiKey = 'ca15d0c98181b90295039aca61c14a6b'
-// const baseUrl = `http://api.scraperapi.com?api_key=${apiKey}&autoparse=true`
+app.use(express.static(path.join(__dirname, 'public')))
 
 const generateScraperUrl = (apiKey) =>
   `http://api.scraperapi.com?api_key=${apiKey}&autoparse=true`
@@ -13,7 +13,7 @@ const generateScraperUrl = (apiKey) =>
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('welcome to amazon api')
+  res.sendFile(path.join(__dirname+'/public/index.html'));
 })
 // GET product details
 app.get('/products/:productId', async (req, res) => {
